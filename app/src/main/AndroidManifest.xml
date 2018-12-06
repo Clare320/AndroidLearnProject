@@ -11,9 +11,12 @@
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">
             <intent-filter>
+                <!--表明这个app的目的-->
                 <action android:name="android.intent.action.MAIN" />
-
+                <!--让app能够接收LAUNCHER请求-->
                 <category android:name="android.intent.category.LAUNCHER" />
+                <!--明确activity可以发送的数据类型-->
+                <!--<data android:mimeType="text/plain" />-->
             </intent-filter>
         </activity>
         <activity android:name=".DisplayMessageActivity" android:parentActivityName=".MainActivity">
@@ -24,5 +27,9 @@
                 />
         </activity>
     </application>
-
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
 </manifest>
+
+<!--
+声明整个app里面用到的Activity。android:name 是必须的
+-->
