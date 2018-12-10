@@ -1,5 +1,7 @@
 package com.example.kede.myapplication1;
 
+import android.arch.lifecycle.Lifecycle;
+import android.arch.lifecycle.LifecycleObserver;
 import android.content.Intent;
 import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
@@ -8,7 +10,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements LifecycleObserver {
 
     TextView mTextView;
     String mGameState;
@@ -35,13 +37,14 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    //2. 将要显示给用户 包含了变为活跃之前最终准备
+    //2. 将要显示给用户 包含了变为活跃之前最终准备 ---> 可以初始化主要UI，这一步非常快
     @Override
     protected void onStart() {
         super.onStart();
     }
 
     //3. 仅在用户交互之前调用 此时界面已经显示在屏幕最上面 在这个方法里面处理大多数功能逻辑
+    // --> 除非app的焦点发生变化否则会一直处在这个状态下，发生打断事件后APP进入Paused状态，唤起欧尼Paused()
     @Override
     protected void onResume() {
         super.onResume();
@@ -57,9 +60,13 @@ public class MainActivity extends AppCompatActivity {
 
     // pause ==> stop 需要一段时间
     // 不再显示时触发  马上要销毁、开启一个新的activity，一个paused状态的activity即将进入resume状态并将覆盖一个要暂停activity上
+    // 对状态进行保存处理
     @Override
     protected void onStop() {
+
         super.onStop();
+
+        // 一旦调用onStop()方法后，如果系统需要覆盖内存，系统会摧毁这个包含Activity的进程，即使系统销毁掉进程，系统依然持有View对象的状态，当用户回到这个地方后还能恢复
     }
 
     // 由stoped状态activity将要重启时调用 恢复之前暂停时存储的状态
@@ -76,17 +83,21 @@ public class MainActivity extends AppCompatActivity {
 
 
     // 只有当有一个已存在的instance时才会被触发，在onCreat()执行结束之后开始执行
-    @Override
-    protected void onRestoreInstanceState(Bundle savedInstanceState) {
-        mTextView.setText(savedInstanceState.getString(GAME_STATE_KEY));
-    }
+//    @Override
+//    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+//        System.out.println("onRestoreInstanceState");
+//        mTextView.setText(savedInstanceState.getString(GAME_STATE_KEY));
+//    }
 
-    // Activity被突然销毁时，调用这个方法，保存对象状态
-    @Override
-    protected void onSaveInstanceState(Bundle outState) {
-        outState.putString(GAME_STATE_KEY, mTextView.getText().toString());
-        super.onSaveInstanceState(outState);
-    }
+    // Activity 进入到stop状态时，系统就会调用这个方法，保存对象状态
+    // 用户明确地调用finished()方法时不会调用
+//    @Override
+//    protected void onSaveInstanceState(Bundle outState) {
+//        outState.putString(GAME_STATE_KEY, mTextView.getText().toString());
+//        System.out.println("onSaveInstanceState");
+//        // --> 总是要调用父级
+//        super.onSaveInstanceState(outState);
+//    }
 
     /** Called when the user taps the Send button */
     public void sendMessage(View view) {
@@ -99,6 +110,12 @@ public class MainActivity extends AppCompatActivity {
         intent.putExtra(EXTRA_MESSAGE, message);
         startActivity(intent);
     }
+
+    // TODO: -- 识别不了，原因待查
+//    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
+//    public void printTipMsg() {
+//        System.out.println("app enter resume state");
+//    }
 }
 
 // Intent
