@@ -11,7 +11,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">
             <intent-filter>
-                <!--表明这个app的目的-->
+                <!--表明这个activity的目的-->
                 <action android:name="android.intent.action.MAIN" />
                 <!--让app能够接收LAUNCHER请求-->
                 <category android:name="android.intent.category.LAUNCHER" />

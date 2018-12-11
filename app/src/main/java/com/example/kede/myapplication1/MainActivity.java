@@ -1,19 +1,25 @@
 package com.example.kede.myapplication1;
 
+import android.app.LoaderManager;
+import android.app.LoaderManager.LoaderCallbacks;
 import android.arch.lifecycle.Lifecycle;
 import android.arch.lifecycle.LifecycleObserver;
 import android.content.Intent;
+import android.content.Loader;
+import android.net.Uri;
 import android.os.PersistableBundle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity implements LifecycleObserver {
 
     TextView mTextView;
     String mGameState;
+    String mBookName;
 
     public static final String EXTRA_MESSAGE = "com.kede.myapplication1.MESSAGE";
     public static final String GAME_STATE_KEY = "gameState";
@@ -35,12 +41,16 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
         // 执行在activity整个周期中只发生一次的基础创建
         // savedInstanceState 包含之前保存的状态，刚初始化时为null 这里说了只会执行一次，拿这个savedInstanceState干什么用
 
+
+        // 创建Loader
+        getLoaderManager().initLoader(0, null, this);
     }
 
     //2. 将要显示给用户 包含了变为活跃之前最终准备 ---> 可以初始化主要UI，这一步非常快
     @Override
     protected void onStart() {
         super.onStart();
+
     }
 
     //3. 仅在用户交互之前调用 此时界面已经显示在屏幕最上面 在这个方法里面处理大多数功能逻辑
@@ -109,7 +119,13 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
         String message = editText.getText().toString();
         intent.putExtra(EXTRA_MESSAGE, message);
         startActivity(intent);
+
     }
+
+    public void openOneActivity(View view) {
+
+    }
+
 
     // TODO: -- 识别不了，原因待查
 //    @OnLifecycleEvent(Lifecycle.Event.ON_RESUME)
@@ -119,3 +135,4 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
 }
 
 // Intent
+// startActivityFromResult --> 需研究
