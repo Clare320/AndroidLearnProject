@@ -43,7 +43,7 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
 
 
         // 创建Loader
-        getLoaderManager().initLoader(0, null, this);
+//        getLoaderManager().initLoader(0, null, this);
     }
 
     //2. 将要显示给用户 包含了变为活跃之前最终准备 ---> 可以初始化主要UI，这一步非常快
@@ -121,6 +121,12 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
         startActivity(intent);
 
     }
+
+    public void showLinearLayoutActivity(View view) {
+        Intent intent = new Intent(this, TestLinearLayoutActivity.class);
+        startActivity(intent);
+    }
+
 
     public void openOneActivity(View view) {
 

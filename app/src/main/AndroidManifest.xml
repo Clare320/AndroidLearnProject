@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.kede.myapplication1">
 
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -11,25 +13,29 @@
         android:theme="@style/AppTheme">
         <activity android:name=".MainActivity">
             <intent-filter>
-                <!--表明这个activity的目的-->
+
+                <!-- 表明这个activity的目的 -->
                 <action android:name="android.intent.action.MAIN" />
-                <!--让app能够接收LAUNCHER请求-->
+                <!-- 让app能够接收LAUNCHER请求 -->
                 <category android:name="android.intent.category.LAUNCHER" />
-                <!--明确activity可以发送的数据类型-->
-                <!--<data android:mimeType="text/plain" />-->
+                <!-- 明确activity可以发送的数据类型 -->
+                <!-- <data android:mimeType="text/plain" /> -->
             </intent-filter>
         </activity>
-        <activity android:name=".DisplayMessageActivity" android:parentActivityName=".MainActivity">
+        <activity
+            android:name=".DisplayMessageActivity"
+            android:parentActivityName=".MainActivity">
+
             <!-- The meta-data tag is required if you support API level 15 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity"
-                />
+                android:value=".MainActivity" />
+        </activity>
+        <activity
+            android:name=".TestLinearLayoutActivity"
+            android:parentActivityName=".MainActivity">
+
         </activity>
     </application>
-    <uses-permission android:name="android.permission.READ_CONTACTS" />
-</manifest>
 
-<!--
-声明整个app里面用到的Activity。android:name 是必须的
--->
+</manifest><!-- 声明整个app里面用到的Activity。android:name 是必须的 -->
