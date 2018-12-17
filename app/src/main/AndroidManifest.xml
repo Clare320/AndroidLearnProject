@@ -33,9 +33,17 @@
         </activity>
         <activity
             android:name=".TestLinearLayoutActivity"
-            android:parentActivityName=".MainActivity">
-
-        </activity>
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".TestBindingDataActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity
+            android:name=".TestTableLayoutActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity android:name=".TestFrameLayoutActivity" />
+        <activity android:name=".TestGridLayoutActivity"
+            android:parentActivityName=".MainActivity" />
+        <activity android:name=".TestBasicControlActivity"  android:parentActivityName=".MainActivity"></activity>
     </application>
 
-</manifest><!-- 声明整个app里面用到的Activity。android:name 是必须的 -->
+</manifest> <!-- 声明整个app里面用到的Activity。android:name 是必须的 -->

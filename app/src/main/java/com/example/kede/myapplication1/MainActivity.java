@@ -123,13 +123,34 @@ public class MainActivity extends AppCompatActivity implements LifecycleObserver
     }
 
     public void showLinearLayoutActivity(View view) {
-        Intent intent = new Intent(this, TestLinearLayoutActivity.class);
-        startActivity(intent);
+        this.presentNewActivity(TestLinearLayoutActivity.class);
     }
 
 
     public void openOneActivity(View view) {
 
+    }
+
+    public void showTestBindDataActivity(View view) {
+        this.presentNewActivity(TestBindingDataActivity.class);
+    }
+
+    public void showTestTableLayoutActivity(View view) {
+        this.presentNewActivity(TestTableLayoutActivity.class);
+    }
+
+    public void showTestGridLayoutActivity(View view) {
+        this.presentNewActivity(TestGridLayoutActivity.class);
+    }
+
+    public void showTestBasicControlActivity(View view) {
+        this.presentNewActivity(TestBasicControlActivity.class);
+    }
+
+
+    private void presentNewActivity(Class cls) {
+        Intent intent = new Intent(this, cls);
+        startActivity(intent);
     }
 
 
